@@ -51,6 +51,7 @@ cd tppo
 ```bash
 pip install -r requirements.txt
 ```
+**Примечание:** для выполнения 3-ей команды, на компьютере должен быть установлен [Python](https://www.python.org/downloads/).
 
 ## Использование
 Для начала работы с программой запустите файл [UI.py](app/algorithms/UI.py)
