@@ -1,0 +1,31 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.0, pytest-8.2.1, pluggy-1.5.0 -- C:\Users\kseni\AppData\Local\Programs\Python\Python312\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\kseni\Documents\Универ\2 курс\2 семестр\ТППО\Курсовая работа\course_project\app\algorithms
+collecting ... collected 4 items
+
+Test/test_site.py::Test::test_logo FAILED                                [ 25%]
+Test/test_site.py::Test::test_contacts[.phone__short span, 210] PASSED   [ 50%]
+Test/test_site.py::Test::test_contacts[.phone__number, +375 29 545-00-00] PASSED [ 75%]
+Test/test_site.py::Test::test_amount_company PASSED                      [100%]
+
+================================== FAILURES ===================================
+_______________________________ Test.test_logo ________________________________
+
+self = <test_site.Test object at 0x000001B1C17234A0>
+soup = <!DOCTYPE html>
+<html lang="ru">
+<head>
+<title>Смартфон купить в Минске в рассрочку, цены на мобильный телефон в Белар... pushGTM = new GTM();
+    /* GA4 initialization end */
+</script>
+</body></html>
+<!--e9f4b9b512d30587a7357f711bcbf109-->
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: 'logo_svg.txt'
+
+C:\Users\kseni\Documents\Универ\2 курс\2 семестр\ТППО\Курсовая работа\course_project\algorithms\Test\test_site.py:9: FileNotFoundError
+=========================== short test summary info ===========================
+FAILED Test/test_site.py::Test::test_logo - FileNotFoundError: [Errno 2] No s...
+========================= 1 failed, 3 passed in 0.81s =========================
