@@ -43,7 +43,7 @@ datetime
 ## Установка
 Для установки и запуска проекта выполните следующие команды:
 ```bash
-git clone https://github.com/gleb7499/tppo.git
+git clone https://github.com/gleb7499/course_project_4_term.git
 ```
 ```bash
 cd tppo
