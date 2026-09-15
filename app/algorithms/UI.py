@@ -15,10 +15,10 @@ customtkinter.set_default_color_theme("../res/Themes/blue.json")
 
 
 class App(customtkinter.CTk):
-    """Главный класс приложения, наследующийся от customtkinter.CTk."""
+    """Main application class, inheriting from customtkinter.CTk."""
 
     def __init__(self):
-        """Инициализирует главное окно приложения и создает начальный интерфейс."""
+        """Initializes the main application window and creates the initial interface."""
         super().__init__()
         self.after(0, lambda: self.state('zoomed'))
         self.title("my app")
@@ -50,7 +50,7 @@ class App(customtkinter.CTk):
         COLUMN_2 = [['№ п/п', 'Номер выборки', 'Название', 'Цена', 'Страница']]
         COLUMN_3 = [['№ п/п', 'Номер продукта', 'Номер выборки', 'Название', 'Цена', 'Страница']]
 
-        # индикатор выполнения действий в приложении
+        # action progress indicator in the application
         self.frame_for_progress_bar = customtkinter.CTkFrame(master=self, height=36)
         self.frame_for_progress_bar.grid(row=1, column=0, sticky='nsew', padx=10, pady=5)
         self.frame_for_progress_bar.grid_columnconfigure(0, weight=1)
@@ -68,59 +68,59 @@ class App(customtkinter.CTk):
         self.bar.grid(row=1, column=2, padx=(0, 20), sticky="e")
         self.bar.set(1)
 
-        # три раздела
+        # three tabs
         self.tab_view = customtkinter.CTkTabview(self, command=self.change_data_on_page)
         self.tab_view.grid(row=0, column=0, padx=10, sticky='nsew')
         self.selection_view = self.tab_view.add('Выборка')
         self.result_view = self.tab_view.add('Результат')
         self.information_view = self.tab_view.add('Информация')
 
-        # работа с 1-ым разделом
+        # work with the 1st tab
         self.selection_view.grid_rowconfigure(2, weight=1)
         self.selection_view.grid_columnconfigure(0, weight=1)
 
-        # фрейм для кнопок управления
+        # frame for control buttons
         self.frame = customtkinter.CTkFrame(self.selection_view)
         self.frame.grid(row=0, column=0, sticky='nsew', pady=(0, 25), padx=(25, 0))
         self.frame.grid_columnconfigure((0, 2, 6, 8, 10), weight=1)
 
-        # кнопка "Назад"
+        # "Back" button
         self.previous_button = customtkinter.CTkButton(self.frame, text="Назад", command=self.previous_page)
         self.previous_button.grid(row=0, column=1)
 
-        # надпись "Страница: "
+        # "Page: " label
         self.label_page = customtkinter.CTkLabel(self.frame, text='Страница: ')
         self.label_page.grid(row=0, column=3, padx=(0, 7))
 
-        # ввод номера страницы
+        # page number input
         self.page_num_entry_1 = customtkinter.CTkEntry(self.frame, validate="key", validatecommand=(
             self.frame.register(lambda char: char.isdigit()), '%S'))
         self.page_num_entry_1.bind('<Return>', lambda event: self.go_to_the_page())
         self.page_num_entry_1.grid(row=0, column=4, padx=(0, 10))
 
-        # переход к странице по номеру
+        # go to the page by number
         self.go_to_the_page_button = customtkinter.CTkButton(self.frame, fg_color="transparent", border_width=2,
                                                              text_color=("gray10", "#DCE4EE"), text='Перейти',
                                                              command=self.go_to_the_page)
         self.go_to_the_page_button.grid(row=0, column=5)
 
-        # общее количество страниц
+        # total number of pages
         self.label_number_of_page_1 = customtkinter.CTkLabel(self.frame,
                                                              text=f'1-{math.ceil(len(self.data_1) / self.AMOUNT_ROW_IN_TABLE)}')
         self.label_number_of_page_1.grid(row=0, column=7)
 
-        # кнопка "Вперед"
+        # "Forward" button
         self.next_page_button = customtkinter.CTkButton(self.frame, text="Вперед", command=self.next_page)
         self.next_page_button.grid(row=0, column=9)
 
-        # кнопка для обновления таблицы
+        # button to update the table
         self.update_table_button = customtkinter.CTkButton(self.frame, width=40,
                                                            image=customtkinter.CTkImage(Image.open(
                                                                '../res/Image/refresh.ico')),
                                                            text='', command=self.update_table)
         self.update_table_button.grid(row=0, column=11)
 
-        # фрейм заголовков таблицы
+        # table header frame
         self.frame = customtkinter.CTkFrame(self.selection_view)
         self.frame.grid(row=1, column=0, sticky='nsew', padx=(25, 0))
         self.frame.grid_columnconfigure(0, weight=1)
@@ -128,7 +128,7 @@ class App(customtkinter.CTk):
         self.head_1 = CTkTable(self.frame, row=1, column=3, values=COLUMN_1)
         self.head_1.grid(row=0, column=0, sticky='nsew')
 
-        # скролл и таблица внутри
+        # scrollable area with a table inside
         self.scroll_frame = customtkinter.CTkScrollableFrame(self.selection_view)
         self.scroll_frame.grid(row=2, column=0, sticky='nsew')
         self.scroll_frame.grid_rowconfigure(0, weight=1)
@@ -138,7 +138,7 @@ class App(customtkinter.CTk):
                                           command=self.selection)
         self.table_selection_1.grid(row=0, column=0, sticky='nsew')
 
-        # кнопка для парсинга сайта
+        # button for parsing the website
         self.frame = customtkinter.CTkFrame(master=self.selection_view)
         self.frame.grid_columnconfigure((0, 2, 4), weight=1)
         self.frame.grid(row=3, column=0, sticky='nsew')
@@ -148,57 +148,57 @@ class App(customtkinter.CTk):
                                                        command=self.go_parsing_and_block_but)
         self.but_for_parsing.grid(row=0, column=1, sticky='nsew')
 
-        # кнопка для проведения тестов
+        # button for running tests
         self.but_for_pytest = customtkinter.CTkButton(self.frame, image=customtkinter.CTkImage(
             Image.open('../res/Image/pytest.ico')), text="Провести тесты", compound='top', command=self.do_pytest)
         self.but_for_pytest.grid(row=0, column=3, padx=(0, 0), sticky='nsew')
 
-        # работа со 2-ым разделом
+        # work with the 2nd tab
         self.result_view.grid_rowconfigure(2, weight=1)
         self.result_view.grid_columnconfigure(0, weight=1)
 
-        # фрейм для кнопок управления
+        # frame for control buttons
         self.frame = customtkinter.CTkFrame(self.result_view)
         self.frame.grid(row=0, column=0, sticky='nsew', pady=(0, 25), padx=(25, 0))
         self.frame.grid_columnconfigure((0, 2, 6, 8, 10), weight=1)
 
-        # кнопка "Назад"
+        # "Back" button
         self.previous_button = customtkinter.CTkButton(self.frame, text="Назад", command=self.previous_page)
         self.previous_button.grid(row=0, column=1)
 
-        # надпись "Страница: "
+        # "Page: " label
         self.label_page = customtkinter.CTkLabel(self.frame, text='Страница: ')
         self.label_page.grid(row=0, column=3, padx=(0, 7))
 
-        # ввод номера страницы
+        # page number input
         self.page_num_entry_2 = customtkinter.CTkEntry(self.frame, validate="key", validatecommand=(
             self.frame.register(lambda char: char.isdigit()), '%S'))
         self.page_num_entry_2.bind('<Return>', lambda event: self.go_to_the_page())
         self.page_num_entry_2.grid(row=0, column=4, padx=(0, 10))
 
-        # переход к странице по номеру
+        # go to the page by number
         self.go_to_the_page_button = customtkinter.CTkButton(self.frame, fg_color="transparent", border_width=2,
                                                              text_color=("gray10", "#DCE4EE"), text='Перейти',
                                                              command=self.go_to_the_page)
         self.go_to_the_page_button.grid(row=0, column=5)
 
-        # общее количество страниц
+        # total number of pages
         self.label_number_of_page_2 = customtkinter.CTkLabel(self.frame,
                                                              text=f'1-{math.ceil(len(self.data_2) / self.AMOUNT_ROW_IN_TABLE)}')
         self.label_number_of_page_2.grid(row=0, column=7)
 
-        # кнопка "Вперед"
+        # "Forward" button
         self.next_page_button = customtkinter.CTkButton(self.frame, text="Вперед", command=self.next_page)
         self.next_page_button.grid(row=0, column=9)
 
-        # кнопка для обновления таблицы
+        # button to update the table
         self.update_table_button = customtkinter.CTkButton(self.frame, width=40,
                                                            image=customtkinter.CTkImage(
                                                                Image.open('../res/Image/refresh.ico')),
                                                            text='', command=self.update_table)
         self.update_table_button.grid(row=0, column=11)
 
-        # фрейм заголовков таблицы
+        # table header frame
         self.frame = customtkinter.CTkFrame(self.result_view)
         self.frame.grid(row=1, column=0, sticky='nsew', padx=(25, 0))
         self.frame.grid_columnconfigure(0, weight=1)
@@ -207,7 +207,7 @@ class App(customtkinter.CTk):
         self.head_2 = CTkTable(self.frame, row=1, column=5, values=COLUMN_2)
         self.head_2.grid(row=0, column=0, sticky='nsew')
 
-        # скролл и таблица внутри
+        # scrollable area with a table inside
         self.scroll_frame = customtkinter.CTkScrollableFrame(self.result_view)
         self.scroll_frame.grid(row=2, column=0, sticky='nsew')
         self.scroll_frame.grid_rowconfigure(0, weight=1)
@@ -217,18 +217,18 @@ class App(customtkinter.CTk):
                                           command=self.selection)
         self.table_selection_2.grid(row=0, column=0, sticky='nsew')
 
-        # работа с 3-им разделом
+        # work with the 3rd tab
         self.information_view.grid_rowconfigure(0, weight=1)
         self.information_view.grid_columnconfigure(0, weight=1)
         self.information_view.grid_columnconfigure(1, weight=1)
 
-        # результаты тестов
+        # test results
         self.textbox_for_pytest = customtkinter.CTkTextbox(master=self.information_view, activate_scrollbars=True)
         self.textbox_for_pytest.insert('1.0', self.string_for_text_box)
         self.textbox_for_pytest.configure(state='disabled')
         self.textbox_for_pytest.grid(row=0, column=0, sticky='nsew')
 
-        # скролл и таблица для повторок внутри
+        # scrollable area with a table for duplicates inside
         self.frame = customtkinter.CTkFrame(self.information_view)
         self.frame.grid(row=0, column=1, sticky='nsew', padx=(10, 0))
         self.frame.grid_columnconfigure(0, weight=1)
@@ -261,13 +261,13 @@ class App(customtkinter.CTk):
                                           command=self.selection)
         self.table_selection_4.grid(row=0, column=0, sticky='nsew')
 
-        # привязка кнопки "Удалить" к соответствующей клавише
+        # bind the "Delete" key to the confirmation window
         self.bind_all('<Delete>', lambda event: self.are_you_sure_window())
 
         self.update_table_all()
 
     def are_you_sure_window(self):
-        """Создает всплывающее окно с подтверждением удаления выбранных элементов."""
+        """Creates a popup window asking for confirmation to delete the selected elements."""
         if len(self.set_for_selected_row) == 0:
             return
 
@@ -310,7 +310,7 @@ class App(customtkinter.CTk):
         are_you_sure.mainloop()
 
     def delete_selected_row(self):
-        """Удаляет выбранные строки из текущей таблицы."""
+        """Deletes the selected rows from the current table."""
         self.string_for_label_bar.set('Удаление элементов из таблицы...')
         self.update()
         cur_tab = self.tab_view.get()
@@ -333,7 +333,7 @@ class App(customtkinter.CTk):
         self.string_for_label_bar.set('')
 
     def selection(self, block):
-        """Выделяет выбранные строки и добавляет их в список выделенных строк."""
+        """Highlights the selected rows and adds them to the list of selected rows."""
         cur_tab = self.tab_view.get()
         row = block.get('row')
         is_selected = lambda: block.get('args').get('fg_color') != ['#36719F', '#144870']
@@ -360,7 +360,7 @@ class App(customtkinter.CTk):
                 self.table_selection_4.deselect_row(row)
 
     def do_pytest(self):
-        """Выполняет тесты pytest и выводит результаты в текстовое поле."""
+        """Runs the pytest tests and outputs the results to the text box."""
         self.string_for_label_bar.set('Выполнение тестов...')
         self.but_for_pytest.configure(state='disabled')
         self.but_for_parsing.configure(state='disabled')
@@ -381,7 +381,7 @@ class App(customtkinter.CTk):
         self.string_for_label_bar.set('')
 
     def go_parsing_and_block_but(self):
-        """Запускает процесс парсинга сайта и блокирует кнопку парсинга во время выполнения."""
+        """Starts the website parsing process and disables the parsing button while it runs."""
         self.string_for_label_bar.set('Парсинг сайта...')
         self.but_for_parsing.configure(state='disabled')
         self.update()
@@ -405,7 +405,7 @@ class App(customtkinter.CTk):
         self.after(1500, self.but_for_parsing.configure(image=customtkinter.CTkImage(Image.open('../res/Image/parsing.ico'))))
 
     def init_table(self, name_table):
-        """Инициализирует данные для таблицы с указанным именем."""
+        """Initializes the data for the table with the specified name."""
         try:
             return self.database.get_data(name_table)
         except sq.Error as e:
@@ -413,7 +413,7 @@ class App(customtkinter.CTk):
             exit(-1)
 
     def update_table_all(self):
-        """Обновляет все таблицы в приложении."""
+        """Updates all tables in the application."""
         self.string_for_label_bar.set('Обновление таблиц...')
         self.table_selection_1.update_values(self.data_1[0:self.rows_per_page])
         self.label_number_of_page_1.configure(text=f'1-{math.ceil(len(self.data_1) / self.AMOUNT_ROW_IN_TABLE)}')
@@ -452,7 +452,7 @@ class App(customtkinter.CTk):
         self.string_for_label_bar.set('')
 
     def update_table(self):
-        """Обновляет текущую таблицу в приложении."""
+        """Updates the current table in the application."""
         self.string_for_label_bar.set('Обновление таблицы...')
         self.update()
         cur_tab = self.tab_view.get()
@@ -477,7 +477,7 @@ class App(customtkinter.CTk):
         self.string_for_label_bar.set('')
 
     def next_page(self):
-        """Переходит к следующей странице текущей таблицы."""
+        """Goes to the next page of the current table."""
         cur_tab = self.tab_view.get()
         if cur_tab == 'Выборка':
             if self.page_number <= math.floor(len(self.data_1) / self.AMOUNT_ROW_IN_TABLE) - 1:
@@ -489,13 +489,13 @@ class App(customtkinter.CTk):
                 self.update_table()
 
     def previous_page(self):
-        """Переходит к предыдущей странице текущей таблицы."""
+        """Goes to the previous page of the current table."""
         if self.page_number > 0:
             self.page_number -= 1
             self.update_table()
 
     def go_to_the_page(self):
-        """Переходит к указанной странице текущей таблицы."""
+        """Goes to the specified page of the current table."""
         cur_tab = self.tab_view.get()
         if cur_tab == 'Выборка':
             try:
@@ -514,13 +514,13 @@ class App(customtkinter.CTk):
             self.update_table()
 
     def change_data_on_page(self):
-        """Обновляет данные на текущей странице при переключении вкладок."""
+        """Updates the data on the current page when switching tabs."""
         self.rows_per_page = 50
         self.page_number = 0
         self.set_for_selected_row.clear()
 
     def show_error(self, message, is_fatality):
-        """Показывает сообщение об ошибке в новом окне."""
+        """Shows an error message in a new window."""
 
         def destroy():
             error_window.destroy()
@@ -551,7 +551,7 @@ class App(customtkinter.CTk):
         error_window.mainloop()
 
     def destroy(self):
-        """Закрывает соединение с базой данных и файл перед уничтожением окна."""
+        """Closes the database connection and the file before destroying the window."""
         self.database.close()
         self.file_for_test.close()
         super().destroy()

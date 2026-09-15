@@ -5,7 +5,7 @@ companies = ['apple', 'xiaomi', 'samsung', 'poco', 'honor', 'realme', 'huawei', 
 
 
 class Database:
-    """Класс для работы с базой данных."""
+    """Class for working with the database."""
 
     def __init__(self):
         try:
@@ -20,7 +20,7 @@ class Database:
             raise sq.Error(f"Произошла ошибка при попытке доступа к базе данных: {e}") from None
 
     def _create_tables(self):
-        """Создает таблицы в базе данных, если они еще не существуют."""
+        """Creates the tables in the database if they do not exist yet."""
         try:
             self._cursor.execute("""CREATE TABLE IF NOT EXISTS Companies (
                                 Name TEXT PRIMARY KEY
@@ -59,7 +59,7 @@ class Database:
             raise sq.Error(f"Произошла ошибка создания таблиц в базе данных: {e}") from None
 
     def _clear_table(self, name_table):
-        """Очищает таблицу."""
+        """Clears the table."""
         try:
             self._cursor.execute(f'DELETE FROM {name_table}')
             self._cursor.execute(f"DELETE FROM sqlite_sequence WHERE name = '{name_table}'")
@@ -70,7 +70,7 @@ class Database:
             raise sq.Error(f"Произошла ошибка очищения данных таблицы '{name_table}' в базе данных: {e}") from None
 
     def delete_data_from_table(self, name_table, num_del):
-        """Удаляет элемент из таблицы."""
+        """Deletes an element from the table."""
         try:
             self._cursor.execute(f"SELECT * FROM {name_table} LIMIT 1")
             first_column_name = self._cursor.description[0][0]
@@ -82,7 +82,7 @@ class Database:
             raise sq.Error(f"Произошла ошибка удаления строк в таблице '{name_table}': {e}") from None
 
     def do_database(self, master):
-        """Заполняет базу данных данными из master."""
+        """Fills the database with data from master."""
         self._clear_table('Products')
         try:
             self._cursor.execute("INSERT INTO Selection VALUES(NULL, ?, ?)", (datetime.now(), master.total))
@@ -109,7 +109,7 @@ class Database:
             raise sq.Error(f"Произошла ошибка при работе с базой данных: {e}") from None
 
     def get_data(self, tableName):
-        """Возвращает все строки из указанной таблицы."""
+        """Returns all rows from the specified table."""
         try:
             self._cursor.execute(f"SELECT * FROM {tableName}")
             return self._cursor.fetchall()
@@ -128,6 +128,6 @@ class Database:
             raise sq.Error(f"Ошибка доступа к таблице Companies\n{e}") from None
 
     def close(self):
-        """Закрывает курсор и соединение с базой данных."""
+        """Closes the cursor and the database connection."""
         self._cursor.close()
         self._connector.close()

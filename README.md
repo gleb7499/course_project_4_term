@@ -1,29 +1,29 @@
 <div align="center">
 <h2>
-Система сбора данных с площадок интернет-торговли
+Data Collection System for E-Commerce Platforms
 </h2>
 </div>
 
-Этот проект представляет собой программу для парсинга электронно-коммерческих
-сайтов. Он автоматизирует сбор данных о продуктах и ценах. Сайт, с которого
-собираются данные - https://shop.mts.by.
+This project is a program for parsing e-commerce websites. It automates the
+collection of product and price data. The website the data is collected from
+is https://shop.mts.by.
 
 ![](examples/начальное_окно.png)
-| _Главное окно программы_
+| _Main window of the program_
 ###
 
 ![](examples/вкладка_результат.png)
-| _Вкладка "Результат" программы_
+| _"Result" tab of the program_
 ###
 
 ![](examples/вкладка_информация.png)
-| _Вкладка "Информация" программы_
+| _"Information" tab of the program_
 ###
 
-## Технологический стек
-Версия Python: `Python 3.12`
+## Technology Stack
+Python version: `Python 3.12`
 
-Используемые библиотеки:
+Libraries used:
 ```
 customtkinter
 sqlite3
@@ -40,8 +40,8 @@ aiohttp
 datetime
 ```
 
-## Установка
-Для установки и запуска проекта выполните следующие команды:
+## Installation
+To install and run the project, execute the following commands:
 ```bash
 git clone https://github.com/gleb7499/course_project_4_term.git
 ```
@@ -51,18 +51,18 @@ cd tppo
 ```bash
 pip install -r requirements.txt
 ```
-**Примечание:** для выполнения 3-ей команды, на компьютере должен быть установлен [Python](https://www.python.org/downloads/).
+**Note:** to run the 3rd command, [Python](https://www.python.org/downloads/) must be installed on your computer.
 
-## Использование
-Для начала работы с программой запустите файл [UI.py](app/algorithms/UI.py)
-в любом IDE (например, [PyCharm](https://www.jetbrains.com/ru-ru/pycharm/download/?section=windows)).
+## Usage
+To start working with the program, run the file [UI.py](app/algorithms/UI.py)
+in any IDE (for example, [PyCharm](https://www.jetbrains.com/ru-ru/pycharm/download/?section=windows)).
 
-## Лицензия
-Данный проект распространяется под [лицензией](LICENSE) MIT.
+## License
+This project is distributed under the [MIT license](LICENSE).
 
-## Автор
-Проект разработан [Логиновым Глебом Олеговичем](https://github.com/gleb7499/).
+## Author
+The project was developed by [Gleb Olegovich Loginov](https://github.com/gleb7499/).
 
 ---
 
-#### Примечание: в связи с тем, что сайт https://shop.mts.by убрал пагинацию со своей страницы, работоспособность кода нарушена!
+#### Note: since the website https://shop.mts.by removed pagination from its page, the code no longer works!

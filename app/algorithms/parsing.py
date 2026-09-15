@@ -4,7 +4,7 @@ import aiohttp
 
 
 class Elem:
-    """Класс для хранения спарсенных данных с одной страницы."""
+    """Class for storing parsed data from one page."""
 
     def __init__(self):
         self.names = []
@@ -13,14 +13,14 @@ class Elem:
 
 
 class Parsing:
-    """Класс для асинхронного парсинга данных с нескольких страниц."""
+    """Class for asynchronously parsing data from multiple pages."""
 
     def __init__(self):
         self.data = []
         self.total = 0
 
     async def _get_page_data(self, session, page):
-        """Асинхронно получает данные с одной страницы."""
+        """Asynchronously fetches data from one page."""
         el = Elem()
         try:
             async with session.get(f"https://shop.mts.by/phones/?page={page}") as response:
@@ -33,7 +33,7 @@ class Parsing:
             raise Exception(f"Произошла ошибка при получении данных со страницы {page}") from None
 
     async def _get_gather(self):
-        """Асинхронно получает данные со всех страниц."""
+        """Asynchronously fetches data from all pages."""
         tasks = []
         try:
             async with aiohttp.ClientSession() as session:
@@ -48,7 +48,7 @@ class Parsing:
             raise e
 
     def do_parsing(self):
-        """Запускает процесс парсинга."""
+        """Starts the parsing process."""
         try:
             asyncio.run(self._get_gather())
         except Exception as e:
